@@ -1,0 +1,559 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BROCUT KIDS 2025</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to bottom, #ff9a9e, #fecfef);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .app-container {
+      width: 95%;
+      max-width: 800px;
+      background-color: #fff3e0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #e91e63;
+      color: white;
+      padding: 15px;
+      border-radius: 15px 15px 0 0;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.3em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: 1px;
+    }
+
+    .tagline {
+      font-size: 1.2em;
+      margin-top: 5px;
+      color: #ffebee;
+    }
+
+    .avatar-selection {
+      margin: 20px 0;
+    }
+
+    .avatar-selection img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin: 15px;
+      cursor: pointer;
+      border: 5px solid #ffccbc;
+      transition: all 0.3s ease;
+    }
+
+    .avatar-selection img.selected {
+      border-color: #4caf50;
+      transform: scale(1.15);
+      box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+    }
+
+    .difficulty {
+      margin: 25px 0;
+      font-size: 1.3em;
+      color: #c2185b;
+    }
+
+    .difficulty button {
+      background-color: #ff5252;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      margin: 0 10px;
+      border-radius: 30px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .difficulty button:hover {
+      background-color: #d32f2f;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .game-screen {
+      display: none;
+      padding: 20px;
+    }
+
+    .problem {
+      font-size: 2.8em;
+      margin: 25px 0;
+      color: #d81b60;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+      min-height: 80px;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin: 25px 0;
+    }
+
+    .option-btn {
+      width: 45%;
+      max-width: 160px;
+      padding: 18px;
+      font-size: 1.4em;
+      font-weight: bold;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(to bottom, #ba68c8, #9c27b0);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .option-btn:hover {
+      background: linear-gradient(to bottom, #ab47bc, #7b1fa2);
+      transform: translateY(-5px);
+    }
+
+    .feedback {
+      font-size: 1.6em;
+      font-weight: bold;
+      margin: 25px 0;
+      min-height: 50px;
+      transition: opacity 0.5s;
+    }
+
+    .celebration {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(233, 30, 99, 0.9);
+      z-index: 100;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 3.5em;
+      color: #fff9c4;
+      animation: celebrate 1.5s infinite alternate;
+      text-shadow: 0 0 20px gold, 0 0 30px yellow;
+    }
+
+    @keyframes celebrate {
+      0% { transform: rotate(-5deg) scale(1); }
+      100% { transform: rotate(5deg) scale(1.1); }
+    }
+
+    .stars {
+      font-size: 6em;
+      text-shadow: 0 0 20px #fff;
+      margin-bottom: 20px;
+      animation: twinkle 1s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    .progress {
+      margin: 20px 0;
+      font-size: 1.2em;
+      color: #880e4f;
+      font-weight: bold;
+    }
+
+    .btn-nav {
+      background-color: #00c853;
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      margin: 15px;
+      border-radius: 30px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .btn-nav:hover {
+      background-color: #007e33;
+      transform: scale(1.08);
+    }
+
+    .points {
+      font-size: 1.5em;
+      color: #ff6f00;
+      font-weight: bold;
+      background-color: #fff9c4;
+      padding: 10px;
+      border-radius: 15px;
+      display: inline-block;
+      margin: 10px 0;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      margin-top: 30px;
+      color: #c2185b;
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    .voice-btn {
+      font-size: 1.3em;
+      background-color: #b39ddb;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 15px;
+      margin-top: 15px;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .voice-btn:hover {
+      background-color: #7e57c2;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #f0f;
+      animation: fall 5s linear forwards;
+      opacity: 0.8;
+      z-index: 200;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(720deg); }
+    }
+
+    .info-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.8em;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>BROCUT KIDS 2025</h1>
+      <div class="tagline">¡Aprende jugando con matemáticas mágicas! ✨</div>
+      <button class="info-btn" onclick="document.getElementById('info-modal').style.display='block'">ℹ️</button>
+    </header>
+
+    <!-- Pantalla de selección -->
+    <div id="start-screen">
+      <h2>¡Hola, pequeño genio! 🌟</h2>
+      <p>Elige a tu compañero de aventuras:</p>
+      <div class="avatar-selection">
+        <img src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&hairColor=Brown&facialHairType=Blank&clotheType=Hoodie&clotheColor=PastelBlue&eyeType=Happy&eyebrowType=DefaultNatural&mouthType=Smile&skinColor=Light" alt="Avatar 1" class="selected" data-name="Luna">
+        <img src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortCurly&hairColor=Black&facialHairType=Blank&clotheType=GraphicShirt&clotheColor=Heather&graphicType=Skull&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Twinkle&skinColor=Light" alt="Avatar 2" data-name="Max">
+        <img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairMiaWallace&hairColor=Blonde&facialHairType=Blank&clotheType=BlazerSweater&clotheColor=Black&eyeType=Wink&eyebrowType=UpDownNatural&mouthType=Disbelief&skinColor=Tanned" alt="Avatar 3" data-name="Sofia">
+        <img src="https://avataaars.io/?avatarStyle=Circle&topType=WinterHat2&hairColor=White&facialHairType=BeardLight&clotheType=WinterNeck&clotheColor=Blue01&eyeType=Close&eyebrowType=UpDown&mouthType=Twinkle&skinColor=Light" alt="Avatar 4" data-name="Tito">
+      </div>
+
+      <div class="difficulty">
+        <p>Elige tu nivel de poder:</p>
+        <button onclick="startGame('easy')">Básico 🔢</button>
+        <button onclick="startGame('medium')">Intermedio ➕➖</button>
+        <button onclick="startGame('hard')">Avanzado 🌟</button>
+      </div>
+    </div>
+
+    <!-- Pantalla de juego -->
+    <div id="game-screen" class="game-screen">
+      <div class="points">Puntos: <span id="points">0</span></div>
+      <div class="progress">Ejercicio <span id="current-qn">1</span> de 10</div>
+      <div><img id="avatar-img" src="" alt="Tu avatar" width="90"></div>
+      <p id="player-name" style="font-size:1.4em; font-weight:bold; color:#e91e63;">¡Vamos!</p>
+
+      <div class="problem" id="problem">8 + 5 = ?</div>
+
+      <button class="voice-btn" onclick="readProblemAloud()">🔊 Escuchar problema</button>
+
+      <div class="options" id="options">
+        <!-- Botones generados dinámicamente -->
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <button class="btn-nav" onclick="nextQuestion()">Siguiente ➡️</button>
+      <button class="btn-nav" onclick="resetGame()">Menú principal 🏠</button>
+    </div>
+
+    <!-- Animación de celebración -->
+    <div class="celebration" id="celebration" onclick="closeCelebration()">
+      <div class="stars">✨ 🌟 ✨</div>
+      <p>¡Increíble! ¡Lo lograste!</p>
+    </div>
+
+    <!-- Modal de información -->
+    <div id="info-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); color:white; justify-content:center; align-items:center; z-index:200; font-family:'Comic Sans MS', cursive;">
+      <div style="background:#e91e63; padding:25px; border-radius:20px; width:85%; max-width:550px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+        <h2 style="color:#fff9c4; text-shadow:2px 2px 4px #000;">🎮 ¡Bienvenido a BROCUT KIDS 2025!</h2>
+        <p style="margin:20px 0; line-height:1.6; font-size:1.1em;">
+          Resuelve sumas, restas y multiplicaciones para ganar puntos. 
+          En nivel avanzado, ¡también tendrás divisiones!
+        </p>
+        <p>
+          Cada respuesta correcta suma 10 puntos y una celebración mágica. 
+          Elige tu personaje y demuestra tu poder matemático.
+        </p>
+        <button class="btn-nav" style="margin-top:20px;" onclick="document.getElementById('info-modal').style.display='none'">Jugar ahora 🚀</button>
+      </div>
+    </div>
+
+    <footer>
+      BROCUT KIDS 2025 © | Aprende, juega y crece 🌈
+    </footer>
+  </div>
+
+  <script>
+    // Variables del juego
+    let currentPoints = 0;
+    let currentQuestion = 1;
+    let totalQuestions = 10;
+    let difficulty = "easy";
+    let selectedAvatar = "";
+    let playerName = "";
+    let problemData = {};
+
+    // Generar problema según nivel
+    function generateProblem() {
+      let num1, num2, operation, answer, choices = [];
+      const operations = ['+', '-', '×'];
+      const opIndex = Math.floor(Math.random() * operations.length);
+      operation = operations[opIndex];
+
+      if (difficulty === "easy") {
+        if (operation === '+') {
+          num1 = Math.floor(Math.random() * 8) + 2;
+          num2 = Math.floor(Math.random() * 8) + 2;
+          answer = num1 + num2;
+        } else if (operation === '-') {
+          num1 = Math.floor(Math.random() * 10) + 5;
+          num2 = Math.floor(Math.random() * 5) + 1;
+          answer = num1 - num2;
+        } else {
+          num1 = Math.floor(Math.random() * 6) + 1;
+          num2 = Math.floor(Math.random() * 6) + 1;
+          answer = num1 * num2;
+        }
+      } else if (difficulty === "medium") {
+        if (operation === '+') {
+          num1 = Math.floor(Math.random() * 50) + 10;
+          num2 = Math.floor(Math.random() * 50) + 10;
+          answer = num1 + num2;
+        } else if (operation === '-') {
+          num1 = Math.floor(Math.random() * 100) + 20;
+          num2 = Math.floor(Math.random() * 30) + 10;
+          answer = num1 - num2;
+        } else {
+          num1 = Math.floor(Math.random() * 12) + 1;
+          num2 = Math.floor(Math.random() * 12) + 1;
+          answer = num1 * num2;
+        }
+      } else {
+        const advancedOps = ['+', '-', '×', '÷'];
+        operation = advancedOps[Math.floor(Math.random() * 4)];
+        
+        if (operation === '+') {
+          num1 = Math.floor(Math.random() * 200) + 50;
+          num2 = Math.floor(Math.random() * 200) + 50;
+          answer = num1 + num2;
+        } else if (operation === '-') {
+          num1 = Math.floor(Math.random() * 500) + 100;
+          num2 = Math.floor(Math.random() * 150) + 50;
+          answer = num1 - num2;
+        } else if (operation === '×') {
+          num1 = Math.floor(Math.random() * 15) + 5;
+          num2 = Math.floor(Math.random() * 15) + 5;
+          answer = num1 * num2;
+        } else {
+          // División exacta
+          num2 = Math.floor(Math.random() * 10) + 2;
+          answer = Math.floor(Math.random() * 10) + 1;
+          num1 = num2 * answer;
+          operation = '÷';
+        }
+      }
+
+      problemData = { num1, num2, operation, answer };
+
+      // Generar opciones
+      choices.push(answer);
+      while (choices.length < 4) {
+        let wrong = answer + (Math.floor(Math.random() * 15) + 1) * (Math.random() > 0.5 ? 1 : -1);
+        if (wrong < 0) wrong = Math.abs(wrong);
+        if (!choices.includes(wrong)) choices.push(wrong);
+      }
+
+      // Mezclar
+      choices.sort(() => Math.random() - 0.5);
+
+      return { problemData, choices };
+    }
+
+    function loadQuestion() {
+      const data = generateProblem();
+      const problem = document.getElementById("problem");
+      problem.textContent = `${data.problemData.num1} ${data.problemData.operation} ${data.problemData.num2} = ?`;
+
+      const optionsContainer = document.getElementById("options");
+      optionsContainer.innerHTML = '';
+
+      data.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.classList.add("option-btn");
+        btn.textContent = choice;
+        btn.onclick = () => checkAnswer(choice);
+        optionsContainer.appendChild(btn);
+      });
+
+      document.getElementById("current-qn").textContent = currentQuestion;
+      document.getElementById("feedback").textContent = "";
+    }
+
+    function checkAnswer(selected) {
+      const correct = selected === problemData.answer;
+      const feedback = document.getElementById("feedback");
+      
+      if (correct) {
+        feedback.textContent = "¡Correcto! 😄 ¡Eres un genio!";
+        feedback.style.color = "#00c853";
+        currentPoints += 10;
+        document.getElementById("points").textContent = currentPoints;
+        showCelebration();
+        createConfetti();
+      } else {
+        feedback.textContent = `¡Casi! La respuesta era ${problemData.answer} 😊`;
+        feedback.style.color = "#d50000";
+      }
+
+      // Desactivar botones
+      document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.disabled = true;
+        if (parseInt(btn.textContent) === problemData.answer) {
+          btn.style.background = "linear-gradient(to bottom, #43a047, #2e7d32)";
+        }
+      });
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(confetti);
+        
+        // Eliminar después de la animación
+        setTimeout(() => confetti.remove(), 5000);
+      }
+    }
+
+    function showCelebration() {
+      document.getElementById("celebration").style.display = "flex";
+    }
+
+    function closeCelebration() {
+      document.getElementById("celebration").style.display = "none";
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion > totalQuestions) {
+        alert(`🎉 ¡Felicidades ${playerName}! Terminaste el nivel ${difficulty} con ${currentPoints} puntos. ¡Eres un campeón BROCUT!`);
+        resetGame();
+        return;
+      }
+      loadQuestion();
+    }
+
+    function startGame(level) {
+      difficulty = level;
+      const selectedImg = document.querySelector(".avatar-selection img.selected");
+      selectedAvatar = selectedImg.src;
+      playerName = selectedImg.dataset.name;
+
+      document.getElementById("start-screen").style.display = "none";
+      document.getElementById("game-screen").style.display = "block";
+      document.getElementById("avatar-img").src = selectedAvatar;
+      document.getElementById("player-name").textContent = `¡Vamos, ${playerName}!`;
+
+      currentPoints = 0;
+      currentQuestion = 1;
+      document.getElementById("points").textContent = currentPoints;
+      loadQuestion();
+    }
+
+    function resetGame() {
+      document.getElementById("game-screen").style.display = "none";
+      document.getElementById("start-screen").style.display = "block";
+    }
+
+    // Selección de avatar
+    document.querySelectorAll(".avatar-selection img").forEach(img => {
+      img.addEventListener("click", function() {
+        document.querySelectorAll(".avatar-selection img").forEach(i => i.classList.remove("selected"));
+        this.classList.add("selected");
+      });
+    });
+
+    // Lectura en voz alta
+    function readProblemAloud() {
+      const problemText = document.getElementById("problem").textContent;
+      const msg = new SpeechSynthesisUtterance(problemText);
+      msg.lang = 'es-ES';
+      msg.rate = 0.9;
+      msg.pitch = 1.2;
+      window.speechSynthesis.speak(msg);
+    }
+
+    // Inicializar
+    window.onload = () => {
+      // Pre-cargar una pregunta si es necesario
+    };
+  </script>
+</body>
+</html>
